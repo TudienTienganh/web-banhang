@@ -1,25 +1,33 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1:3308
+-- Generation Time: Nov 08, 2023 at 12:24 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
-CREATE TABLE IF NOT EXISTS `admin` (
-`id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `level` int(11) NOT NULL,
-  `created` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
+--
+-- Database: `db_webshop_a`
+--
 
-INSERT INTO `admin` (`id`, `name`, `email`, `password`, `level`, `created`) VALUES
-(1, 'Goo', 'admin@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 0, 2147483647),
-(2, 'Mod đz', 'mod@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 2147483647);
+-- --------------------------------------------------------
 
-
+--
+-- Table structure for table `admin`
+--
 
 CREATE TABLE IF NOT EXISTS `catalog` (
-`id` int(11) NOT NULL,
+  `catalog_id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parent_id` int(11) NOT NULL,
@@ -27,9 +35,11 @@ CREATE TABLE IF NOT EXISTS `catalog` (
   `created` datetime NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `catalog`
+--
 
-
-INSERT INTO `catalog` (`id`, `name`, `description`, `parent_id`, `sort_order`, `created`) VALUES
+INSERT INTO `catalog` (`catalog_id`, `name`, `description`, `parent_id`, `sort_order`, `created`) VALUES
 (1, 'Thời trang', '', 0, 1, '2017-04-22 05:35:21'),
 (2, 'Bán chạy', '', 0, 2, '2017-04-22 05:35:48'),
 (3, 'Khuyến mại', '', 0, 3, '2017-04-22 05:35:59'),
@@ -51,20 +61,26 @@ INSERT INTO `catalog` (`id`, `name`, `description`, `parent_id`, `sort_order`, `
 (19, 'Cặp', '', 9, 3, '2017-04-22 09:25:55'),
 (20, 'Dép', '', 9, 4, '2017-04-22 09:26:21');
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `order`
+--
 
 CREATE TABLE IF NOT EXISTS `order` (
-`id` int(11) NOT NULL,
+`order_id` int(11) NOT NULL,
   `transaction_id` int(100) NOT NULL,
   `product_id` int(100) NOT NULL,
   `qty` int(100) NOT NULL DEFAULT '0',
   `amount` decimal(15,2) NOT NULL DEFAULT '0.00',
   `status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `order`
+--
 
-
-INSERT INTO `order` (`id`, `transaction_id`, `product_id`, `qty`, `amount`, `status`) VALUES
+INSERT INTO `order` (`order_id`, `transaction_id`, `product_id`, `qty`, `amount`, `status`) VALUES
 (1, 3, 12, 1, '360000.00', 0),
 (3, 4, 7, 1, '350000.00', 0),
 (12, 9, 4, 1, '200000.00', 0),
@@ -81,20 +97,16 @@ INSERT INTO `order` (`id`, `transaction_id`, `product_id`, `qty`, `amount`, `sta
 (18, 14, 93, 1, '580000.00', 0),
 (19, 14, 71, 1, '400000.00', 0),
 (20, 14, 104, 1, '480000.00', 0),
-(21, 14, 69, 1, '300000.00', 0),
-(22, 15, 126, 1, '300000.00', 0),
-(23, 15, 129, 1, '150.00', 0),
-(24, 15, 122, 1, '25000.00', 0),
-(25, 15, 111, 1, '150000.00', 0),
-(26, 15, 106, 1, '250000.00', 0),
-(27, 16, 80, 1, '600000.00', 0),
-(28, 16, 105, 1, '470000.00', 0),
-(29, 17, 88, 1, '500000.00', 0);
+(21, 14, 69, 1, '300000.00', 0);
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `product`
+--
 
 CREATE TABLE IF NOT EXISTS `product` (
-`id` int(255) NOT NULL,
+  `id` int(255) NOT NULL,
   `catalog_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
@@ -109,15 +121,18 @@ CREATE TABLE IF NOT EXISTS `product` (
   `created` int(11) NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `product`
+--
 
 INSERT INTO `product` (`id`, `catalog_id`, `name`, `content`, `price`, `discount`, `image_link`, `image_list`, `view`, `buyed`, `rate_total`, `rate_count`, `created`) VALUES
-(105, 15, 'Quần LEVENTS KHAKI PANTS BEIGE', '<p>+ LEVENTS&reg; KHAKI PANTS<br />\r\nChất liệu: Khaki<br />\r\nK&iacute;ch cỡ: 1/2/3</p>\r\n\r\n<p>Sản phẩm&nbsp;<a href="https://levents.asia/product-category/quan/quan-dai/khaki/">quần Khaki</a>&nbsp;thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của&nbsp;<a href="https://levents.asia/">Levents</a></p>\r\n', '470000.00', 0, 'a50.jpg', '[]', 1, 0, 9, 2, 1699107740),
+(105, 15, 'Quần LEVENTS KHAKI PANTS BEIGE', '<p>+ LEVENTS&reg; KHAKI PANTS<br />\r\nChất liệu: Khaki<br />\r\nK&iacute;ch cỡ: 1/2/3</p>\r\n\r\n<p>Sản phẩm&nbsp;<a href="https://levents.asia/product-category/quan/quan-dai/khaki/">quần Khaki</a>&nbsp;thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của&nbsp;<a href="https://levents.asia/">Levents</a></p>\r\n', '470000.00', 0, 'a50.jpg', '[]', 0, 0, 4, 1, 1699107740),
 (106, 16, 'Quần LEVENTS CLASSIC SHORTPANTS BLACK', '<p>Levents&reg; Classic ShortPants</p>\r\n\r\n<p>Material: Nỉ<br />\r\nSize: 1/2/3/4</p>\r\n\r\n<p>Đ&acirc;y l&agrave; sản phẩm thuộc d&ograve;ng sản phẩm mới chưa từng c&oacute; từ trước đến nay &ndash; LEVENTS&reg; CLASSIC.</p>\r\n\r\n<p>LEVENTS&reg; CLASSIC với mục ti&ecirc;u trở th&agrave;nh d&ograve;ng sản phẩm &ldquo;EVERY WEAR&rdquo; l&agrave; sự kết hợp tinh tế giữa thiết kế đơn giản, hiện đại v&agrave; form d&aacute;ng cổ điển, tập trung về chất liệu v&agrave; m&agrave;u sắc đa dạng.</p>\r\n\r\n<p>Hứa hẹn mang đến những item thoải m&aacute;i để bạn tự tin thể hiện c&aacute; t&iacute;nh, ph&ugrave; hợp với mọi hoạt động dạo phố h&agrave;ng ng&agrave;y.</p>\r\n', '250000.00', 0, 'a51.jpg', '[]', 1, 0, 4, 1, 1699107940),
 (107, 16, 'Quần LEVENTS CLASSIC SHORTPANTS  CREAM', '<p>Levents&reg; Classic ShortPants</p>\r\n\r\n<p>Material: Nỉ<br />\r\nSize: 1/2/3/4</p>\r\n\r\n<p>Đ&acirc;y l&agrave; sản phẩm thuộc d&ograve;ng sản phẩm mới chưa từng c&oacute; từ trước đến nay &ndash; LEVENTS&reg; CLASSIC.</p>\r\n\r\n<p>LEVENTS&reg; CLASSIC với mục ti&ecirc;u trở th&agrave;nh d&ograve;ng sản phẩm &ldquo;EVERY WEAR&rdquo; l&agrave; sự kết hợp tinh tế giữa thiết kế đơn giản, hiện đại v&agrave; form d&aacute;ng cổ điển, tập trung về chất liệu v&agrave; m&agrave;u sắc đa dạng.</p>\r\n\r\n<p>Hứa hẹn mang đến những item thoải m&aacute;i để bạn tự tin thể hiện c&aacute; t&iacute;nh, ph&ugrave; hợp với mọi hoạt động dạo phố h&agrave;ng ng&agrave;y</p>\r\n', '250000.00', 0, 'a52.jpg', '[]', 0, 0, 4, 1, 1699108007),
 (103, 15, 'Quần LEVENTS CRAYON JEANS BLACK', '<p>+ LEVENTS&reg; CRAYON JEANS</p>\r\n\r\n<p>Chất liệu: Jeans</p>\r\n\r\n<p>K&iacute;ch cỡ: 1/2/3/4</p>\r\n\r\n<p>Sản phẩm&nbsp;<a href="https://levents.asia/product-category/quan/quan-dai/jean/">quần Jeans</a>&nbsp;thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của&nbsp;<a href="https://levents.asia/">Levents</a></p>\r\n', '420000.00', 0, 'a48.jpg', '[]', 1, 0, 4, 1, 1699107629),
 (104, 15, 'Quần LEVENTS CRAYON JEANS BLUE', '<p>+ LEVENTS&reg; CRAYON JEANS</p>\r\n\r\n<p>Chất liệu: Jeans</p>\r\n\r\n<p>K&iacute;ch cỡ: 1/2/3/4</p>\r\n\r\n<p>Sản phẩm&nbsp;<a href="https://levents.asia/product-category/quan/quan-dai/jean/">quần Jeans</a>&nbsp;thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của&nbsp;<a href="https://levents.asia/">Levents</a></p>\r\n', '480000.00', 0, 'a49.jpg', '[]', 1, 0, 4, 1, 1699107682),
 (101, 15, 'Quần Levents Classic Wash Straight Jeans Blue', '<p>Levents&reg; Classic Wash Straight Jeans/ Blue</p>\r\n\r\n<p>Color: Blue</p>\r\n\r\n<p>Material: Denim<br />\r\nSize: 2/3/4</p>\r\n\r\n<p>Đ&acirc;y l&agrave; sản phẩm thuộc d&ograve;ng sản phẩm mới chưa từng c&oacute; từ trước đến nay &ndash; LEVENTS&reg; CLASSIC.</p>\r\n\r\n<p>LEVENTS&reg; CLASSIC với mục ti&ecirc;u trở th&agrave;nh d&ograve;ng sản phẩm &ldquo;EVERY WEAR&rdquo; l&agrave; sự kết hợp tinh tế giữa thiết kế đơn giản, hiện đại v&agrave; form d&aacute;ng cổ điển, tập trung về chất liệu v&agrave; m&agrave;u sắc đa dạng.</p>\r\n\r\n<p>Hứa hẹn mang đến những item thoải m&aacute;i để bạn tự tin thể hiện c&aacute; t&iacute;nh, ph&ugrave; hợp với mọi hoạt động dạo phố h&agrave;ng ng&agrave;y.</p>\r\n', '460000.00', 0, 'a46.jpg', '[]', 0, 0, 4, 1, 1699107500),
-(71, 11, 'Áo LEVENTS CINEMA SHIRT Green', '<p>LEVENTS&reg; CINEMA SHIRT<br />\r\nChất liệu: 100% Cotton<br />\r\nK&iacute;ch cỡ: 1/2/3<br />\r\nSản phẩm thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của Levents</p>\r\n', '450000.00', 50000, 'a18.jpg', '[]', 2, 0, 4, 1, 1699104727),
+(71, 11, 'Áo LEVENTS CINEMA SHIRT Green', '<p>LEVENTS&reg; CINEMA SHIRT<br />\r\nChất liệu: 100% Cotton<br />\r\nK&iacute;ch cỡ: 1/2/3<br />\r\nSản phẩm thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của Levents</p>\r\n', '450000.00', 50000, 'a18.jpg', '[]', 1, 0, 4, 1, 1699104727),
 (72, 11, 'Áo LEVENTS CINEMA SHIRT BLACK', '<p>LEVENTS&reg; CINEMA SHIRT<br />\r\nChất liệu: 100% Cotton<br />\r\nK&iacute;ch cỡ: 1/2/3<br />\r\nSản phẩm thuộc Bộ sưu tập Thu/ Đ&ocirc;ng 2022 của Levents</p>\r\n', '400000.00', 0, 'a19.jpg', '[]', 1, 0, 4, 1, 1699104868),
 (73, 11, 'Áo LEVENTS CITIES SHIRT Black ', '<p>+ LEVENTS&reg; CITIES SHIRT<br />\r\nChất liệu: Cotton<br />\r\nK&iacute;ch cỡ: 1/2/3</p>\r\n', '400000.00', 0, 'a20.jpg', '[]', 0, 0, 4, 1, 1699104947),
 (74, 11, 'Áo LEVENTS CITIES SHIRT White', '<p>+ LEVENTS&reg; CITIES SHIRT<br />\r\nChất liệu: Cotton<br />\r\nK&iacute;ch cỡ: 1/2/3</p>\r\n', '400000.00', 0, 'a21.jpg', '[]', 0, 0, 4, 1, 1699105032),
@@ -142,7 +157,7 @@ INSERT INTO `product` (`id`, `catalog_id`, `name`, `content`, `price`, `discount
 (94, 14, 'Áo LEVENTS POPULAR LOGO 2.0 HOODIE CREAM', '<p>Levents&reg; Classic Hoodie</p>\r\n\r\n<p>Material: Nỉ<br />\r\nSize: 2/3/4</p>\r\n\r\n<p>Đ&acirc;y l&agrave; sản phẩm thuộc d&ograve;ng sản phẩm mới chưa từng c&oacute; từ trước đến nay &ndash; LEVENTS&reg; CLASSIC.</p>\r\n\r\n<p>LEVENTS&reg; CLASSIC với mục ti&ecirc;u trở th&agrave;nh d&ograve;ng sản phẩm &ldquo;EVERY WEAR&rdquo; l&agrave; sự kết hợp tinh tế giữa thiết kế đơn giản, hiện đại v&agrave; form d&aacute;ng cổ điển, tập trung về chất liệu v&agrave; m&agrave;u sắc đa dạng.</p>\r\n\r\n<p>Hứa hẹn mang đến những item thoải m&aacute;i để bạn tự tin thể hiện c&aacute; t&iacute;nh, ph&ugrave; hợp với mọi hoạt động dạo phố h&agrave;ng ng&agrave;y.</p>\r\n', '670000.00', 0, 'a40.jpg', '[]', 0, 0, 4, 1, 1699106882),
 (95, 14, 'Áo LEVENTS BASIC BOXY HOODIE BROWN', '<p>+ LEVENTS&reg; BASIC BOXY HOODIE</p>\r\n\r\n<p>Chất liệu: L&Igrave; VEN FABRIC &ndash; BOXY</p>\r\n\r\n<p>K&iacute;ch cỡ: 2/3/4</p>\r\n', '620000.00', 100000, 'a41.jpg', '[]', 0, 0, 4, 1, 1699106948),
 (96, 14, 'ÁO LEVENTS BASIC BOXY HOODIE WHITE', '<p>+ LEVENTS&reg; BASIC BOXY HOODIE</p>\r\n\r\n<p>Chất liệu: L&Igrave; VEN FABRIC &ndash; BOXY</p>\r\n\r\n<p>K&iacute;ch cỡ: 2/3/4</p>\r\n', '630000.00', 100000, 'a42.jpg', '[]', 0, 0, 4, 1, 1699107024),
-(97, 14, 'Áo LEVENTS MY ANIMALS SERIES TIGER HOODIE CREAM', '<p>+ LEVENTS&reg; &ldquo;MY ANIMALS&rdquo; SERIES TIGER HOODIE</p>\r\n\r\n<p>Chất liệu: LÌ VEN FABRIC &ndash; phi&ecirc;n bản chất vải d&agrave;y dặn, mềm mịn, kh&ocirc;ng bị nhăn.</p>\r\n\r\n<p>K&iacute;ch cỡ: 1/2/3</p>\r\n\r\n<p>Sản phẩm thuộc Bộ sưu tập đặc biệt &ldquo;MY ANIMALS&rdquo; Series năm 2021</p>\r\n', '720000.00', 0, 'a43.jpg', '[]', 3, 0, 4, 1, 1699107089),
+(97, 14, 'Áo LEVENTS MY ANIMALS SERIES TIGER HOODIE CREAM', '<p>+ LEVENTS&reg; &ldquo;MY ANIMALS&rdquo; SERIES TIGER HOODIE</p>\r\n\r\n<p>Chất liệu: LÌ VEN FABRIC &ndash; phi&ecirc;n bản chất vải d&agrave;y dặn, mềm mịn, kh&ocirc;ng bị nhăn.</p>\r\n\r\n<p>K&iacute;ch cỡ: 1/2/3</p>\r\n\r\n<p>Sản phẩm thuộc Bộ sưu tập đặc biệt &ldquo;MY ANIMALS&rdquo; Series năm 2021</p>\r\n', '720000.00', 0, 'a43.jpg', '[]', 1, 0, 4, 1, 1699107089),
 (98, 15, 'Quần LEVENTS CLASSIC LINE TRACK PANTS BLACK', '<p>Levents&reg; Classic Line Track Pants/ Black</p>\r\n\r\n<p>Color: Black</p>\r\n\r\n<p>Material: Cotton<br />\r\nSize: 2/3/4</p>\r\n\r\n<p>Đ&acirc;y l&agrave; sản phẩm thuộc d&ograve;ng sản phẩm mới chưa từng c&oacute; từ trước đến nay &ndash; LEVENTS&reg; CLASSIC.</p>\r\n\r\n<p>LEVENTS&reg; CLASSIC với mục ti&ecirc;u trở th&agrave;nh d&ograve;ng sản phẩm &ldquo;EVERY WEAR&rdquo; l&agrave; sự kết hợp tinh tế giữa thiết kế đơn giản, hiện đại v&agrave; form d&aacute;ng cổ điển, tập trung về chất liệu v&agrave; m&agrave;u sắc đa dạng.</p>\r\n\r\n<p>Hứa hẹn mang đến những item thoải m&aacute;i để bạn tự tin thể hiện c&aacute; t&iacute;nh, ph&ugrave; hợp với mọi hoạt động dạo phố h&agrave;ng ng&agrave;y.</p>\r\n', '430000.00', 0, 'a44.jpg', '[]', 0, 0, 4, 1, 1699107257),
 (99, 15, 'Quần LEVENTS CLASSIC TRACK PANTS BLACK', '<p>Levents&reg; Classic Track Pants/ Black</p>\r\n\r\n<p>Color: Black</p>\r\n\r\n<p>Material: Cotton<br />\r\nSize: 2/3/4</p>\r\n\r\n<p>Đ&acirc;y l&agrave; sản phẩm thuộc d&ograve;ng sản phẩm mới chưa từng c&oacute; từ trước đến nay &ndash; LEVENTS&reg; CLASSIC.</p>\r\n\r\n<p>LEVENTS&reg; CLASSIC với mục ti&ecirc;u trở th&agrave;nh d&ograve;ng sản phẩm &ldquo;EVERY WEAR&rdquo; l&agrave; sự kết hợp tinh tế giữa thiết kế đơn giản, hiện đại v&agrave; form d&aacute;ng cổ điển, tập trung về chất liệu v&agrave; m&agrave;u sắc đa dạng.</p>\r\n\r\n<p>Hứa hẹn mang đến những item thoải m&aacute;i để bạn tự tin thể hiện c&aacute; t&iacute;nh, ph&ugrave; hợp với mọi hoạt động dạo phố h&agrave;ng ng&agrave;y.</p>\r\n', '460000.00', 0, 'a45.jpg', '[]', 0, 0, 4, 1, 1699107352),
 (102, 15, 'Quần LEVENTS POPPOP CARGO PANTS BLACK', '<p>LEVENTS&reg; | POPPOP CARGO PANTS</p>\r\n\r\n<p>Chất liệu: Khaki</p>\r\n\r\n<p>K&iacute;ch cỡ: 2/3/4</p>\r\n\r\n<p>Sản phẩm thuộc Bộ sưu tập đặc biệt LEVENTS&reg; | POPPOP &ldquo;Make Poppop Famous&rdquo; &ndash; Dự &aacute;n kết hợp 2022</p>\r\n', '460000.00', 60000, 'a47.jpg', '[]', 0, 0, 4, 1, 1699107561),
@@ -182,12 +197,17 @@ INSERT INTO `product` (`id`, `catalog_id`, `name`, `content`, `price`, `discount
 (125, 19, 'Cặp LEVENTS BASIC BACKPACK BLACK', '<p>LEVENTS&reg; BASIC&nbsp;BACKPACK</p>\r\n\r\n<p>Chất liệu: Poly<br />\r\nK&iacute;ch cỡ: 41 X 25 X 15 cm, ph&ugrave; hợp với laptop dưới 14 inch.</p>\r\n', '300000.00', 0, 'a69.jpg', '[]', 1, 0, 4, 1, 1699111675),
 (126, 19, 'Cặp LEVENTS DOUBLE E BACKPACK BLACK', '<p>LEVENTS&reg; DOUBLE &ldquo;E&rdquo; BACKPACK</p>\r\n\r\n<p>Chất liệu: Poly<br />\r\nK&iacute;ch cỡ: 41 X 25 X 15 CM, ph&ugrave; hợp với laptop dưới 14 inch.</p>\r\n', '300000.00', 0, 'a70.jpg', '[]', 0, 0, 4, 1, 1699111730),
 (127, 20, 'Dép LEVENTS ESSENTIAL 2.0 SLIPPER YELLOW', '<p>+ LEVENTS&reg; ESSENTIAL 2.0 SLIPPER</p>\r\n\r\n<p>Chất liệu: 100% PVC</p>\r\n\r\n<p>K&iacute;ch cỡ: 6/8/10/12 ( US )</p>\r\n\r\n<p>Độ d&agrave;y đế: 24.5 mm</p>\r\n', '150000.00', 0, 'a71.jpg', '[]', 0, 0, 4, 1, 1699112169),
-(128, 20, 'Dép LEVENTS ESSENTIAL 2.0 SLIPPER LIGHT BROWN', '<p>+ LEVENTS&reg; ESSENTIAL 2.0 SLIPPER</p>\r\n\r\n<p>Chất liệu: 100% PVC</p>\r\n\r\n<p>K&iacute;ch cỡ: 6/8/10/12 ( US )</p>\r\n\r\n<p>Độ d&agrave;y đế: 24.5 mm</p>\r\n', '150000.00', 0, 'a72.jpg', '[]', 2, 0, 4, 1, 1699112223),
-(129, 20, 'Dép LEVENTS ESSENTIAL 2.0 SLIPPER GREEN', '<p>+ LEVENTS&reg; ESSENTIAL 2.0 SLIPPER</p>\r\n\r\n<p>Chất liệu: 100% PVC</p>\r\n\r\n<p>K&iacute;ch cỡ: 6/8/10/12 ( US )</p>\r\n\r\n<p>Độ d&agrave;y đế: 24.5 mm</p>\r\n', '150.00', 0, 'a73.jpg', '[]', 1, 0, 4, 1, 1699112279);
+(128, 20, 'Dép LEVENTS ESSENTIAL 2.0 SLIPPER LIGHT BROWN', '<p>+ LEVENTS&reg; ESSENTIAL 2.0 SLIPPER</p>\r\n\r\n<p>Chất liệu: 100% PVC</p>\r\n\r\n<p>K&iacute;ch cỡ: 6/8/10/12 ( US )</p>\r\n\r\n<p>Độ d&agrave;y đế: 24.5 mm</p>\r\n', '150000.00', 0, 'a72.jpg', '[]', 0, 0, 4, 1, 1699112223),
+(129, 20, 'Dép LEVENTS ESSENTIAL 2.0 SLIPPER GREEN', '<p>+ LEVENTS&reg; ESSENTIAL 2.0 SLIPPER</p>\r\n\r\n<p>Chất liệu: 100% PVC</p>\r\n\r\n<p>K&iacute;ch cỡ: 6/8/10/12 ( US )</p>\r\n\r\n<p>Độ d&agrave;y đế: 24.5 mm</p>\r\n', '150.00', 0, 'a73.jpg', '[]', 0, 0, 4, 1, 1699112279);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slider`
+--
 
 CREATE TABLE IF NOT EXISTS `slider` (
-`id` int(11) NOT NULL,
+  `slider_id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `image_link` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `link` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -195,17 +215,23 @@ CREATE TABLE IF NOT EXISTS `slider` (
   `created` datetime NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
+--
+-- Dumping data for table `slider`
+--
 
 INSERT INTO `slider` (`id`, `name`, `image_link`, `link`, `sort_order`, `created`) VALUES
 (1, '1', 'a100.jpg', 'http://localhost/webshop/phoi-ren-p4', 1, '2017-04-25 15:24:43'),
 (4, '2', 'a103.jpg', 'http://localhost/webshop/ao-gia-dinh-ag0560-p16', 4, '2017-04-25 15:36:41'),
 (5, '3', 'a111.jpg', 'http://localhost/webshop/phong-cach-phoi-mau-p24', 3, '2017-04-25 15:37:00');
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `transaction`
+--
 
 CREATE TABLE IF NOT EXISTS `transaction` (
-`id` int(11) NOT NULL,
+  `transaction_id` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT '0',
   `user_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -216,9 +242,11 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `amount` decimal(15,2) NOT NULL DEFAULT '0.00',
   `payment` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `created` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
+--
+-- Dumping data for table `transaction`
+--
 
 INSERT INTO `transaction` (`id`, `status`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `message`, `amount`, `payment`, `created`) VALUES
 (4, 1, 0, 'An Nhiên', 'annhien@gmail.com', '0166666666', 'Hoàng Mai - Hà Nội', 'Vui lòng trao hàng đến địa chỉ trên...', '350000.00', '', 1493983674),
@@ -232,74 +260,88 @@ INSERT INTO `transaction` (`id`, `status`, `user_id`, `user_name`, `user_email`,
 (11, 0, 0, 'test', 'test@gmail.com', '1234567890', 'Hải Phòng', 'TESE', '300000.00', '', 1494383674),
 (12, 0, 6, 'Nguyen An', 'khachhang1@gmail.com', '01201212222', 'Thủy Nguyên - Hải Phòng', 'SHIP TO', '169000.00', '', 1494407353),
 (13, 1, 8, 'Nguyễn Văn A', 'nguyenvana@gmail.com', '0928817228', 'Hà Nội', 'giao hàng thì gọi cho tôi', '740000.00', '', 1697462226),
-(14, 0, 0, 'Nguyen Văn D', '2202@gmail.com', '0986127896', 'Thái Bình', 'ko có', '1760000.00', '', 1699175643),
-(15, 0, 9, 'rgreger', 'Bach@gmail.com', '0356891236', 'Ha Noi', '.', '725150.00', '', 1699524786),
-(16, 0, 9, 'rgreger', 'Bach@gmail.com', '0356891236', 'Ha Noi', '.', '1070000.00', '', 1699524868),
-(17, 0, 9, 'rgreger', 'Bach@gmail.com', '0356891236', 'Ha Noi', '.', '500000.00', '', 1699524881);
+(14, 0, 0, 'Nguyen Văn D', '2202@gmail.com', '0986127896', 'Thái Bình', 'ko có', '1760000.00', '', 1699175643);
 
--
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
 
 CREATE TABLE IF NOT EXISTS `user` (
-`id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `user`
+--
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `phone`, `address`, `created`) VALUES
+INSERT INTO `user` (`user_id`, `name`, `email`, `password`, `phone`, `address`, `created`) VALUES
 (6, 'Nguyen An', 'khachhang1@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '01201212222', 'Thủy Nguyên - Hải Phòng', 2147483647),
 (5, 'User', 'user@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '01215345336', 'Hải Phòng', 2147483647),
 (7, 'TEST@gmail.com', 'TEST@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '01215345336', 'Hải Phòng', 2017),
-(8, 'Nguyễn Văn A', 'nguyenvana@gmail.com', '25d55ad283aa400af464c76d713c07ad', '0928817228', 'Hà Nội', 2023),
-(9, 'rgreger', 'Bach@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0356891236', 'Ha Noi', 2023);
+(8, 'Nguyễn Văn A', 'nguyenvana@gmail.com', '25d55ad283aa400af464c76d713c07ad', '0928817228', 'Hà Nội', 2023);
 
+--
+-- Indexes for dumped tables
+--
 
-ALTER TABLE `admin`
- ADD PRIMARY KEY (`id`);
-
-
+--
+-- Indexes for table `catalog`
+--
 ALTER TABLE `catalog`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`catalog_id`);
 
-
+--
+-- Indexes for table `order`
+--
 ALTER TABLE `order`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`order_id`);
 
-
+--
+-- Indexes for table `product`
+--
 ALTER TABLE `product`
  ADD PRIMARY KEY (`id`);
 
-
+--
+-- Indexes for table `slider`
+--
 ALTER TABLE `slider`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`slider_id`);
 
-
+--
+-- Indexes for table `transaction`
+--
 ALTER TABLE `transaction`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`transaction_id`);
 
-
+--
+-- Indexes for table `user`
+--
 ALTER TABLE `user`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`user_id`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
-
-
-ALTER TABLE `admin`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `catalog`
 --
 ALTER TABLE `catalog`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `catalog_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `product`
 --
@@ -309,17 +351,17 @@ MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=130;
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
